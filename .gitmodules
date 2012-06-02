@@ -1,0 +1,6 @@
+[submodule "js/flotr2"]
+	path = js/flotr2
+	url = https://github.com/HumbleSoftware/Flotr2.git
+[submodule "lib/requests"]
+	path = lib/requests
+	url = https://github.com/rmccue/Requests.git
