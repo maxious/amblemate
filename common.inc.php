@@ -1,6 +1,7 @@
 <?php
-
 $otpURL = "http://amblemate.lambdacomplex.org:8080/";
+
+if (php_uname('n') == 'ip-10-196-142-253') $otpURL = "http://localhost:8080/";
 
 function include_header() {
 ?>
@@ -65,16 +66,29 @@ function include_footer() {
   <script src="js/helper.js"></script>
   <!-- end concatenated and minified scripts-->
 
-  <!-- <script src="https://getfirebug.com/firebug-lite.js"></script> -->
+  <!-- <script src="https://getfirebug.com/firebug-lite.js"></script>
 
   <script> // Change UA-XXXXX-X to be your site's ID
     var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
     g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
     s.parentNode.insertBefore(g,s)}(document,"script"));
-  </script>
+  </script>-->
 
 </body>
 </html>
 <?php 
+}
+function startsWith($haystack, $needle, $case = true) {
+    if ($case) {
+        return (strcmp(substr($haystack, 0, strlen($needle)), $needle) === 0);
+    }
+    return (strcasecmp(substr($haystack, 0, strlen($needle)), $needle) === 0);
+}
+
+function endsWith($haystack, $needle, $case = true) {
+    if ($case) {
+        return (strcmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
+    }
+    return (strcasecmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
 }
