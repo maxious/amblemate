@@ -1,6 +1,6 @@
 <?php
 
-$otpURL = "http://localhost:8080";
+$otpURL = "http://amblemate.lambdacomplex.org:8080/";
 
 function include_header() {
 ?>
