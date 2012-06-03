@@ -3,20 +3,43 @@ include("common.inc.php");
 include_header();
 require_once 'lib/requests/library/Requests.php';
 Requests::register_autoloader();
-$to = $_REQUEST['to'];
-$from = $_REQUEST['from'];
+
+$from = (isset($_REQUEST['from']) ? filter_var($_REQUEST['from'], FILTER_SANITIZE_STRING) : "");
+$to = (isset($_REQUEST['to']) ? filter_var($_REQUEST['to'], FILTER_SANITIZE_STRING) : "");
+    if (startsWith($to, "-")) {
+        $toPlace = $to;
+    } else if (strpos($to, "(") !== false) {
+        $toParts = explode("(", $to);
+        $toPlace = str_replace(")", "", $toParts[1]);
+    } else {
+        //$toPlace = geocode($to, false);
+    }
+
+    if (startsWith($from, "-")) {
+        $fromPlace = $from;
+    } else if (strpos($from, "(") !== false) {
+        $fromParts = explode("(", urldecode($from));
+        $fromPlace = str_replace(")", "", $fromParts[1]);
+    } else {
+        //$fromPlace = geocode($from, false);
+    }
+
 $mode = $_REQUEST['mode'];
 $wheelchair = (isset($_REQUEST['wheelchair']) ? "true" : "false");
-$request = Requests::get($otpURL.'opentripplanner-api-webapp/ws/plan?_dc=1338678656569&arriveBy=false&time=9%3A07%20am&ui_date=6%2F3%2F2012'
-        .'&mode=WALK&optimize=QUICK'
+$optimize = "QUICK";
+$url = $otpURL.'opentripplanner-api-webapp/ws/plan?_dc=1338678656569&arriveBy=false&time=9%3A07%20am&ui_date=6%2F3%2F2012'
+        .'&mode='.$mode
+        .'&optimize='.$optimize
         .'&maxWalkDistance=840&date=2012-06-03&preferredRoutes=&routerId='
         .'&wheelchair='.$wheelchair
-        .'&toPlace='.$to
-        .'&fromPlace='.$from);
+        .'&toPlace='.$toPlace
+        .'&fromPlace='.$fromPlace;
+$request = Requests::get($url);
 echo "<p>";
 $result = json_decode($request->body);
 $plan = $result->plan->itineraries[0];
 echo "<!--";
+echo "$url\n";
 print_r($plan);
 echo "-->";
 

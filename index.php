@@ -12,7 +12,11 @@ include_header();
 <br />
     Mode of transport:<br>
     <INPUT type="radio" name="mode" value="WALK" checked/> Walking<BR>
-    <INPUT type="radio" name="mode" value="CYCLING"/> Cycling<BR>
+    <INPUT type="radio" name="mode" value="BICYCLE"/> Cycling<BR>
+        Optimise for:<br>
+    <INPUT type="radio" name="optimize" value="QUICK" checked/> Quick - prefer speed over ease<BR>
+    <INPUT type="radio" name="optimize" value="SAFE"/> Safe - prefer paths away from roads<BR>
+        <INPUT type="radio" name="optimize" value="FLAT"/> Flat - prefer flatter but longer journeys over speed<BR>
     <input type="submit"/>
 </form>
 <?php
