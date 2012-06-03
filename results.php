@@ -1,6 +1,5 @@
 <?php
 include("common.inc.php");
-include_header();
 require_once 'lib/requests/library/Requests.php';
 Requests::register_autoloader();
 
@@ -35,16 +34,19 @@ $url = $otpURL.'opentripplanner-api-webapp/ws/plan?_dc=1338678656569&arriveBy=fa
         .'&toPlace='.$toPlace
         .'&fromPlace='.$fromPlace;
 $request = Requests::get($url);
-echo "<p>";
 $result = json_decode($request->body);
 $plan = $result->plan->itineraries[0];
+$leg = $plan->legs[0];
+$title = $leg->from->name." to ".$leg->to->name;
+
+include_header($title);
+echo "<p>";
 echo "<!--";
 echo "$url\n";
 print_r($plan);
 echo "-->";
 
-$leg = $plan->legs[0];
-echo "<centre><h1>".$leg->from->name." to ".$leg->to->name."</h1></centre>";
+echo "<centre><h1>".$title."</h1></centre>";
 echo "Total distance ".round($plan->walkDistance)." meters <br>";
 echo "Maximum elevation lost ".floor($plan->elevationLost)." meters <br>";
 echo "Maximum elevation gained ".floor($plan->elevationGained)." meters <br>";

@@ -1,9 +1,11 @@
 <?php
 include ("common.inc.php");
+http://my.opera.com/cookyjar/blog/2009/04/20/importing-csv-data-file
+$conn = new PDO('sqlite:/var/www/amblemate/data.db');
 $result = Array();
 if (isset($_REQUEST['term'])) {
 	$term = filter_var($_REQUEST['term'], FILTER_SANITIZE_STRING);
-	$query = "Select stop_name,min(stop_lat) as stop_lat,min(stop_lon) as stop_lon from stops where stop_name ILIKE :term group by stop_name";
+	$query = "Select stop_name,min(stop_lat) as stop_lat,min(stop_lon) as stop_lon from data where stop_name ILIKE :term group by stop_name";
 	$query = $conn->prepare($query);
 	$term = "$term%";
 	$query->bindParam(":term", $term);

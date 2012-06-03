@@ -1,6 +1,6 @@
 <?php
 include("common.inc.php");
-include_header();
+include_header("AmbleMate");
 ?>
 <centre><h1>AmbleMate</h1></centre>
 <form action="results.php"> 
@@ -10,14 +10,15 @@ include_header();
     <input type="checkbox" name="wheelchair" id="wheelchair" />
 <label for="wheelchair">Wheelchair/pram accessible </label>
 <br />
-    Mode of transport:<br>
-    <INPUT type="radio" name="mode" value="WALK" checked/> Walking<BR>
-    <INPUT type="radio" name="mode" value="BICYCLE"/> Cycling<BR>
-        Optimise for:<br>
-    <INPUT type="radio" name="optimize" value="QUICK" checked/> Quick - prefer speed over ease<BR>
-    <INPUT type="radio" name="optimize" value="SAFE"/> Safe - prefer paths away from roads<BR>
-        <INPUT type="radio" name="optimize" value="FLAT"/> Flat - prefer flatter but longer journeys over speed<BR>
-    <input type="submit"/>
+<fieldset> <legend>Mode of transport</legend>   <INPUT type="radio" name="mode" value="WALK" checked id="walking"/> <label for="walking">Walking</label>
+    <INPUT type="radio" name="mode" value="BICYCLE" id="cycling"/> <label for="cycling">Cycling</label></fieldset>
+<fieldset>
+        <legend>Optimise for</legend>
+    <INPUT type="radio" name="optimize" value="QUICK" checked id="quick"/> <label for="quick">Quick - prefer speed over ease</label><BR>
+    <INPUT type="radio" name="optimize" value="SAFE" id="safe"/> <label for="safe">Safe - prefer paths away from roads</label><BR>
+        <INPUT type="radio" name="optimize" value="FLAT" id="flat"/> <label for="flat">Flat - prefer flatter but longer journeys over speed</label><BR>
+    </fieldset>
+<input type="submit"/>
 </form>
 <?php
 include_footer();

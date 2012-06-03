@@ -3,7 +3,7 @@ $otpURL = "http://amblemate.lambdacomplex.org:8080/";
 
 if (php_uname('n') == 'ip-10-196-142-253') $otpURL = "http://localhost:8080/";
 
-function include_header() {
+function include_header($title) {
 ?>
 <!doctype html>
 <!-- Conditional comment for mobile ie7 blogs.msdn.com/b/iemobile/ -->
@@ -13,7 +13,7 @@ function include_header() {
 <head>
   <meta charset="utf-8">
 
-  <title></title>
+  <title><?php echo $title; ?></title>
   <meta name="description" content="">
 
   <meta name="HandheldFriendly" content="True">
