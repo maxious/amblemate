@@ -11,12 +11,20 @@
                 <property name="bundles">
                     <list>
                         <bean class="org.opentripplanner.graph_builder.model.GtfsBundle">
-                            <property name="path" value="/home/ec2-user/google_transit.zip" />
+                            <property name="path" value="/home/ec2-user/cbrfeed.zip" />
+<property name="defaultAgencyId" value="0" />
+                <property name="defaultBikesAllowed" value="true" />
                         </bean>
                     </list>
                 </property>
             </bean>
         </property>
+ <property name="gtfsGraphBuilders">
+                <list>
+                        <bean
+class="org.opentripplanner.graph_builder.impl.transit_index.TransitIndexBuilder" />
+                </list>
+          </property>
     </bean>
 
     <bean id="osmBuilder" class="org.opentripplanner.graph_builder.impl.osm.OpenStreetMapGraphBuilderImpl">
@@ -28,6 +36,7 @@
     </bean>
 
     <bean id="transitStreetLink" class="org.opentripplanner.graph_builder.impl.TransitToStreetNetworkGraphBuilderImpl" />
+    <bean id="optimizeTransit" class="org.opentripplanner.graph_builder.impl.OptimizeTransitGraphBuilderImpl" />
 <bean id="nedBuilder" class="org.opentripplanner.graph_builder.impl.ned.NEDGraphBuilderImpl">
     <property name="gridCoverageFactory">
         <bean class="org.opentripplanner.graph_builder.impl.ned.GeotiffGridCoverageFactoryImpl">
@@ -44,6 +53,8 @@
                 <ref bean="osmBuilder" />
 <ref bean="nedBuilder" />
                 <ref bean="transitStreetLink" />
+
+                <ref bean="optimizeTransit" />
             </list>
         </property>
 
