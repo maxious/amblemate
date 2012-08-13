@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:sec="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+
+    <context:annotation-config />
+    
+    <bean class="org.opentripplanner.analyst.request.SampleFactory" />
+    <bean class="org.opentripplanner.routing.impl.DefaultRemainingWeightHeuristicFactoryImpl"/>
+    <bean class="org.opentripplanner.routing.algorithm.GenericAStar"/>
+    <bean class="org.opentripplanner.analyst.batch.IndividualFactory" />
+    <bean class="org.opentripplanner.analyst.core.GeometryIndex" />
+    
+    
+    <!-- specify a GraphService, configuring the path to the serialized Graphs -->
+    <bean id="graphService" class="org.opentripplanner.routing.impl.GraphServiceImpl">
+        <property name="path" value="c:\tmp\" />
+    </bean>
+
+<!-- this creates a population arranged on a regular grid that can later be saved as an image-->
+    <bean id="destinations" class="org.opentripplanner.analyst.batch.SyntheticRasterPopulation">
+        <property name="left" value="148.995926" />
+        <property name="right" value="149.241" />
+        <property name="bottom" value="-35.48" />
+        <property name="top" value="-35.124" />        
+        <property name="crsCode" value="epsg:4326" />
+        <property name="cols" value="512" />
+        <property name="rows" value="1024" />        
+    </bean>
+ 
+<!-- this loads a population from a comma-separated flat text file -->
+
+    <bean id="origins" class="org.opentripplanner.analyst.batch.CSVPopulation">
+        <property name="sourceFilename" value="c:\tmp\suburbpop.csv" />
+        <property name="latCol" value="1" />
+        <property name="lonCol" value="0" />
+        <property name="labelCol" value="2" />
+        <property name="inputCol" value="3" />   
+        <!-- do not include origins who are NaN, Inf, negative, or outside the transit coverage area --> 
+        <property name="filterChain">
+        	<list>
+        		<bean class="org.opentripplanner.analyst.batch.NanInfFilter" />
+        		<bean class="org.opentripplanner.analyst.batch.InputClampFilter" />
+        		 <bean class="org.opentripplanner.analyst.batch.GraphGeographicFilter">
+			        <property name="useOnlyStops" value="true" />
+			        <property name="bufferMeters" value="2000" />
+        		</bean>
+        	</list>
+        </property>             
+    </bean>
+	
+<!-- define the main batch processor, which will build one shortest path tree from each origin to all destinations -->
+	
+	<bean id="batchProcessor" class="org.opentripplanner.analyst.batch.BatchProcessor"> 
+        <property name="outputPath" value="c:\tmp\out1834_aaa.tiff" />
+        <property name="date" value="2012-05-29" />
+        <property name="time" value="08:00 AM" />
+        <property name="timeZone" value="Australia/Sydney" />
+       
+<property name="accumulator"> 
+            <bean class="org.opentripplanner.analyst.batch.ThresholdAccumulator">
+                <property name="threshold" value="3600" />
+            </bean>
+        </property>  
+         
+    </bean>
+<bean id="prototypeRoutingRequest" class="org.opentripplanner.routing.core.RoutingRequest">
+		<!-- Set default routing parameters here -->
+        <property name="maxWalkDistance" value="2000" />
+        <property name="clampInitialWait" value="1800" />
+        <property name="arriveBy" value="false" />
+        <property name="modes" value="WALK,TRANSIT" />
+	</bean>	
+</beans>
