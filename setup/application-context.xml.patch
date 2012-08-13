@@ -8,3 +8,8 @@
        </list>
    </property>
 </bean>
+
+       <bean id="RoutingRequest" 
+class="org.opentripplanner.routing.core.RoutingRequest"> 
+                <!-- Set default routing parameters here --> 
+        </bean> 
