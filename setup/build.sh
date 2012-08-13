@@ -1,1 +1,2 @@
-java  -Xmx512M -jar opentripplanner-graph-builder/target/graph-builder.jar ~/graph-config.xml 
+../apache-maven-3.0.4/bin/mvn package -DskipTests=true
+
