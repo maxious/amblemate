@@ -2,41 +2,21 @@
 include("common.inc.php");
 include_header();
 ?>
-AmbleMate<br>
-This is a web based tool to help pick best walking/cycling paths in Australia but prototyping just on ACT. Best can include most gentle walk or most challenging ride depending on personal preference ;)<br>
-<br>
+<h1>AmbleMate</h1>
+This is a web based tool to help pick best walking/cycling paths in Australia but prototyping just on ACT. Best can include most gentle walk or most challenging ride depending on personal preference ;)<br/>
+<br/>
 Datasets:
 <ul>
-<li>ACT Bus</li>
-<li>Geoscience Digital Elevation Data</li>
+<li><a href="http://data.gov.au/dataset/action-bus-service-gtfs-feed-act/">ACTION Bus Service GTFS Feed</a></li>
+<li>Geoscience Australia SRTM derived Digital Elevation Model Data<br>
+    © Commonwealth of Australia (Geoscience Australia) 2011<br>
+    http://creativecommons.org/licenses/by/3.0/au/</li>
+</ul>
+Contact: govhack@lambdacomplex.org<br/>
 
-Contact: govhack@lambdacomplex.org
-
-Based on OpenTripPlanner Project
-Some icons from the OTP project used under LGPL3 licence
-
-<img src="img/ui/logoSmall.png"/><img src="img/ui/opengeologo.png"/>
+<a href="http://www.opentripplanner.com"><img src="img/ui/logoSmall.png"/></a><img src="img/ui/opengeologo.png"/><br/>
 <a href="https://github.com/maxious/amblemate">Github (Source Code)</a>
 
-<strong>TODO</strong>
-
-Web based interface form
-
-Results parsing
-
-Results Maps
-
-Geocoding API
-
-Elevation graph of path taken
-
-<strong>Future TODO</strong>
-
-Android/iOS app interfaces
-
-HTML5 geolocation
-
-GA -> OTP automatic elevation API 
 <?php
 include_footer();
 
