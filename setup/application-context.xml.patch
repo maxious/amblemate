@@ -1,0 +1,15 @@
+<bean id="periodicGraphUpdater" class="org.opentripplanner.api.servlet.PeriodicGraphUpdater">
+    <property name="updaters">
+        <list>
+            <bean class="org.opentripplanner.updater.GtfsRealtimeUpdater">
+                <property name="url" value="http://bus.lambdacomplex.org/rtpis/gtfs-realtime.php?protobuf=true&updates=true" />
+                <property name="defaultAgencyId" value="0" />
+            </bean>
+       </list>
+   </property>
+</bean>
+
+       <bean id="RoutingRequest" 
+class="org.opentripplanner.routing.core.RoutingRequest"> 
+                <!-- Set default routing parameters here --> 
+        </bean> 

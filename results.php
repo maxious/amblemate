@@ -53,13 +53,20 @@ echo "Maximum elevation gained ".floor($plan->elevationGained)." meters <br>";
 echo '<img src="http://maps.google.com/maps/api/staticmap?size=400x400&path=enc:'.$leg->legGeometry->points.'&sensor=false"/><br>';
 $elevations = Array();
 echo "<h2>Steps</h2><ol>";
+$totalStepsDistance = 0;
 foreach ($leg->steps as $step) {
     echo "<li>Go ".ucwords($step->absoluteDirection)
             .($step->relativeDirection=="" || $step->relativeDirection == "CONTINUE"?"":" (turn ".ucwords(str_replace("_"," ",$step->relativeDirection)).")").(startsWith($step->streetName,"way") ? "" : " on ".$step->streetName)." for ".floor($step->distance)." metres"."</li>";
     $stepElevations = explode(",",$step->elevation);
+    $stepDistance = $totalStepsDistance;
     foreach ($stepElevations as $i => $stepElevation) {
-        if (($i+1) % 2 == 0) $elevations[] = $stepElevation;
+        if (($i+1) % 2 == 0) {
+            $elevations[$stepDistance] = $stepElevation;
+        } else {
+            $stepDistance = $totalStepsDistance + $stepElevation;
+        }
     }
+    $totalStepsDistance = $stepDistance;
 } 
 
 echo "</ol></p>";
