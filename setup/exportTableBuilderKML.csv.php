@@ -1,15 +1,15 @@
 <?php 
 $fp = fopen('php://output', 'w');
 if ($fp ) {
-    header('Content-Type: text/csv; charset=utf-8');
-   header('Content-Disposition: attachment; filename="suburbpop.csv"');
+  //  header('Content-Type: text/csv; charset=utf-8');
+ //  header('Content-Disposition: attachment; filename="suburbpop.csv"');
     header('Pragma: no-cache');
     header('Expires: 0');
     
-$xml = simplexml_load_file('suburb2006population.kml');
+$xml = simplexml_load_file('sa1nocar.kml');
 $json = json_encode($xml);
 $data = json_decode($json,TRUE);
-foreach ($data['Folder']['Placemark'] as $suburb) {
+foreach ($data['Document']['Folder']['Placemark'] as $suburb) {
     if ($suburb['name'] == "Unclassified ACT")        continue;
     $geo = "";
     if (isset($suburb['MultiGeometry']['Polygon']['outerBoundaryIs']['LinearRing'])) {
@@ -32,7 +32,7 @@ if (count($latlng) < 2) continue;
     
     fputcsv($fp,Array($sumlat/count($coords),$sumlon/count($coords),
         $suburb['name'],
-        str_replace(".0", "", str_replace("Persons@ Location on Census Night:","",$suburb['description']))));
+        str_replace(".0", "", explode(":",$suburb['description'])[1])));
 }
 
 
