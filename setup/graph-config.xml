@@ -11,7 +11,8 @@
                 <property name="bundles">
                     <list>
                         <bean class="org.opentripplanner.graph_builder.model.GtfsBundle">
-                            <property name="path" value="/home/ec2-user/cbrfeed.zip" />
+<!-- <property name="path" value="/home/ec2-user/cbrfeed.zip" /> -->
+                            <property name="url" value="http://busresources.lambdacomplex.org/cbrfeed.zip" />
 <property name="defaultAgencyId" value="0" />
                 <property name="defaultBikesAllowed" value="true" />
                         </bean>
@@ -36,11 +37,10 @@ class="org.opentripplanner.graph_builder.impl.transit_index.TransitIndexBuilder"
     </bean>
 
     <bean id="transitStreetLink" class="org.opentripplanner.graph_builder.impl.TransitToStreetNetworkGraphBuilderImpl" />
-    <bean id="optimizeTransit" class="org.opentripplanner.graph_builder.impl.OptimizeTransitGraphBuilderImpl" />
 <bean id="nedBuilder" class="org.opentripplanner.graph_builder.impl.ned.NEDGraphBuilderImpl">
     <property name="gridCoverageFactory">
         <bean class="org.opentripplanner.graph_builder.impl.ned.GeotiffGridCoverageFactoryImpl">
-            <property name="path" value="/home/ec2-user/3Sec_SRTM_DEM_WGS841.tif" />
+            <property name="path" value="/home/ec2-user/dems1s.tif" />
         </bean>
     </property>
 </bean>
@@ -54,7 +54,6 @@ class="org.opentripplanner.graph_builder.impl.transit_index.TransitIndexBuilder"
 <ref bean="nedBuilder" />
                 <ref bean="transitStreetLink" />
 
-                <ref bean="optimizeTransit" />
             </list>
         </property>
 
