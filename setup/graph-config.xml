@@ -34,6 +34,9 @@ class="org.opentripplanner.graph_builder.impl.transit_index.TransitIndexBuilder"
         <property name="path" value="/home/ec2-user/canberra.osm" />
     </bean>
         </property>
+<property name="defaultWayPropertySetSource">
+			<bean class="org.opentripplanner.graph_builder.impl.osm.DefaultWayPropertySetSource" />
+		</property>
     </bean>
 
     <bean id="transitStreetLink" class="org.opentripplanner.graph_builder.impl.TransitToStreetNetworkGraphBuilderImpl" />
@@ -44,7 +47,11 @@ class="org.opentripplanner.graph_builder.impl.transit_index.TransitIndexBuilder"
         </bean>
     </property>
 </bean>
-    <bean id="graphBuilderTask" class="org.opentripplanner.graph_builder.GraphBuilderTask">
+	<bean id="checkGeometry" class="org.opentripplanner.graph_builder.impl.CheckGeometryGraphBuilderImpl" />
+        <bean id="raptorBuilder" class="org.opentripplanner.graph_builder.impl.raptor.RaptorDataBuilder" />
+	<bean id="transitComputer" class="org.opentripplanner.graph_builder.impl.transit_local_streets.TransitLocalStreetComputer" />
+	<bean id="pruneBuilder"	class="org.opentripplanner.graph_builder.impl.PruneFloatingIslands" /> 
+	<bean id="graphBuilderTask" class="org.opentripplanner.graph_builder.GraphBuilderTask" >
         <property name="path" value="/tmp" />
         <property name="graphBuilders">
             <list>
@@ -52,8 +59,11 @@ class="org.opentripplanner.graph_builder.impl.transit_index.TransitIndexBuilder"
                 <ref bean="gtfsBuilder" />
                 <ref bean="osmBuilder" />
 <ref bean="nedBuilder" />
-                <ref bean="transitStreetLink" />
-
+<!--<ref bean="pruneBuilder" />-->
+				<ref bean="transitStreetLink" />
+				<ref bean="checkGeometry" />
+				<ref bean="raptorBuilder" />
+				<!--<ref bean="transitComputer" />-->
             </list>
         </property>
 
