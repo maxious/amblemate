@@ -1,0 +1,20 @@
+<GDAL_WMS>
+  <Service name="TMS">
+    <ServerUrl>http://localhost:8080/opentripplanner-api-webapp/ws/tile/${z}/${x}/${y}.png?layers=traveltime&styles=mask&batch=true&mode=TRANSIT%2CWALK&maxWalkDistance=2000&time=2012-10-16T08%3A00%3A00&fromPlace=-35.28262170071516%2C149.1332244873047&toPlace=-35.26516650000001%2C149.154675</ServerUrl>
+  </Service>
+  <DataWindow>
+    <UpperLeftX>-20037508.34</UpperLeftX>
+    <UpperLeftY>20037508.34</UpperLeftY>
+    <LowerRightX>20037508.34</LowerRightX>
+    <LowerRightY>-20037508.34</LowerRightY>
+    <TileLevel>12</TileLevel>
+    <TileCountX>1</TileCountX>
+    <TileCountY>1</TileCountY>
+    <YOrigin>top</YOrigin>
+  </DataWindow>
+  <Projection>EPSG:3857</Projection>
+  <BlockSizeX>256</BlockSizeX>
+  <BlockSizeY>256</BlockSizeY>
+  <BandsCount>3</BandsCount>
+  <Cache/>
+</GDAL_WMS>
