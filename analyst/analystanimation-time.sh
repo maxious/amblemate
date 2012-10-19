@@ -1,6 +1,7 @@
 #!/bin/bash
 # source: https://github.com/openplans/OpenTripPlanner/wiki/AnalystAnimations
 # to make mp4 x264 "./%d.tif" --crf 25 --vf crop:129,100,120,103 -o test.mp4
+# or  mencoder mf://*.tif -mf fps=25:type=tiff -ovc lavc -o outputfile.mkv
 # BOUNDING BOXES
 # canberra
 bbox="148.86646270751953,-35.35321610123823,149.30591583251953,-35.1336676281011"
